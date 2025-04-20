@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store</title>
+    <meta name="description" content="Affordable and professional content creation gear for TikTok and Instagram influencers and creators.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f7f8da;
+            color: #333;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(90deg, #fffb04, #2e82ff, #00ff00);
+            background-size: 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientAnimation 3s infinite linear;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 30px 0 15px;
+            color: #333;
+        }
+
+        nav {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-list {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .nav-list li {
+            font-weight: bold;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-list li:hover {
+            background-color: #f0f0f0;
+            color: #9b9b9b;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            width: 100%;
+            max-height: 400px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .hero img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 150px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .product-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            color: #FE2C55;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .quantity-input {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .quantity-input input.qty {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .add-to-cart {
+            background-color: #353333de;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: #00fd6ad3;
+        }
+
+        .banner {
+            background: linear-gradient(45deg, #fdc585, #020202);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .banner h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        /* Address Form Styles */
+        .address-form-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .address-form {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .address-form h3 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .form-buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .cancel-btn {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        .submit-btn {
+            background-color: #353333de;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #00fd6ad3;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .nav-list {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-list">
+            <li>Contact</li>
+            <li>Accessories</li>
+            <li>Lighting</li>
+            <li>Cameras</li>
+            <li>All</li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <img src="pexels-dacapture-14036568.jpg" alt="Content Creation Gear">
+    </div>
+
+    <header>
+        <h1>TikTok & Instagram</h1>
+        <p>Create professional content with our affordable equipment</p>
+    </header>
+
+    <main class="container">
+        <div class="banner">
+            <h2>Create Pro Content</h2>
+            <p>Everything you need to start making high-quality social media videos</p>
+        </div>
+
+        <div class="products">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="pexels-alex-andrews-271121-1983035.jpg" alt="Digital Camera">
+                </div>
+                <div class="product-name">Digital Camera</div>
+                <div class="product-price">$20</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPWQh-1-cSc-DJHmdEVH-VPr7Z8ChBrYiY9g&s" alt="Ring Light">
+                </div>
+                <div class="product-name">Ring Light</div>
+                <div class="product-price">$150</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxIQEBAPEhMVFRUVFRYVFhEVGRUWFRYWFxIWGRUVFRUZHSghGBooGxYYJTUiJSsrMC4uGB8zODMsNygtMCsBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIAOEA4QMBIgACEQEDEQH/xAAcAAEBAAIDAQEAAAAAAAAAAAAABwUGAQIECAP/xABMEAABAwIDBQQFBwYLCQEAAAABAAIDBBEFEiEGBzFBYRMiUXEUMkKBtBUjUmJzkbMkNTZygrEIJjRTY4OSk6OywSUzQ0R0oaLi8Rf/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AuKIiAiIg8tfWthZJK71Y2OkcRrZrWkmw5mwK0L/9qwn6cv8AdOW47RNvT1TfpQSj/CevjNBda7fSO1k7KRgjzdy8Dy7LYesS8a3vyWdoN9eHdlH2z39plGfJE/Jnt3stze1182LlB9i7LbUQYlCainzFmcsu4FpuAL6Hlqs6pX/B+P8Ass/9Q/8Ac1VRAREQEREBERAREQEREBERAREQEREBERAREQEREBERB48RgL2SNHFzHNHmWkf6r5yG5LFfCD+9/wDVfTK82I1jYIpJn3yxtLzbU2aLmw8UHynWbAzwyvhknpmvY7K5pe/Q2Bt6ng4LMYfubxGoiZNE+mcx4zNd2jrEePqLaN4GIYVPXtlkglkLoWPne2QNHZOZ3Mjde+CRfhwOqteGMa2GJsYswRsDB4NDRlH3WQajus2WnwyiNNUFhf2rn3jJc2xA5kDXRbwiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIC8uKUDKiGWnkvkkaWOsbGxFjY8ivUiCZbUbsqeoqWObNJEJIWwljWscMsYaARcaEi1yqRSxBjGMHBrQ0eQFgpvvIrJI8XwRjJHta9zw9rXEBwEsWjgOPFU1AREQEREBERAREQEREBERAREKAi1/H9qKWie1tTUNhzi7Gu0uAdTwPisQN5OFgm9bH7i6/wDlQbuiw+zmPQVzHS00olYHZC4X0cACRqByc0+9ZhAREQEREBERAREQEREEq3ofnrZ/7R/4kSqqle9D897P/aP/ABIlVEBERAREQEREBERAREQEREBcXWF2k2gFG+kaWZu3m7K97ZBkc4vtYl2oAsPG/JSmLe1VVbXRiJsQmbK1r43EyQ5IC/O24AcdOCD8P4RJ/KqH7KT8Rik1lntpa6WeKkllkfI93bkveSTcvjJ48PLgFgrIL/8AwfG2w6frVSfhRD/RVFQfcVO/0tsed2TspjkzHKT2jRctvYnhr0V4QEREBERAREQEREBY3HMVNLGJBDNNc2DIW53XtpcXFh1WSXBQQ3avaX02twrEBA+OOmnfG9shYJC/NEXDKDpbxPVXFhuF8/bb7Ntp8UpqRzzK+qdn9JdftWNdLlEZuSCBY2Oi+gY22AHhog7IiICIiAiIgIiICIiAiIg8lbhsUzonyMDnRPzxk37rspbce4kLSdmNhKCmrnSRMfeBzuza57nMaXRNa7Q8dHka3WQ25xbEqVr5qWKmdCxudz5HkSdWtZoL66arQ92eIh2OVEnaRyGrY5znMY5ozNa1+VoOotZ17+CDGb+qOKGrpBHG1gdHK4hoDQXOkbdxtzUwavqXarYekxKRklSx7ixpawse5mhsTfLx1Cwg3QYX/NTf30qD8dw9Mz5NEuVuftZm57DNlz8L8bdFS1iNmcBhoIBTU7S2MOc4Bzi43cbuNzrxWXQEREBERAREQEREBdJX5QTxsCbeQXddZG3BHjog+c8XxeWetwitnu7KMxcS3MWmseWggerlaQNeNl9GtN9V83bZ7MsosSpcPa7N2kUQ7W1nfOVMjbuF7XAHs2GnBfR8TbADjYAXQd0REBERAREQEREBERAREQYLbWSmbRTelhxhOVrwy+bVwtlA1veymm7GkaccrmHX0XtGRHgbB3Z961ge6Ofmty3uwvdhrsjS/LLE4tF7ZQ/vZrahtjqf/qnW6uZwxs2Y0B/pIeGEvY213XD+YzNtc+KC92REQEREBERAREQEREBERAREQQvex+kVB9nS/GSq6KGb2P0iofs6T4yRXNAREQEREBERAREQEREBERAUR3M/nfEf674lW5RLcx+dsR/rviigtqIiAiIgIiICIiAiIgIiICIsBtzjrsPopatjA8sLBlN7Wc8Ak215oJZvW/SKh+zpPjJVcl8ybV7UPrMRhxAxhvZNgaGAnvdnKXnUjS5cVcdhNtY8VbLkjdG6IR5wdReQOIynn6h5INqREQEREBERAREQEREBERAUT3L/AJ1xDym+KKrGK7QUtK9kc8zY3PBLQ7S4HE34D3qN7mMShbiNXI+RrBK2QszkNvmqCQBfnrw6ILwi6seCAQQQeBGoK7ICIiAiIgIiICIiAiIgKe73sXIgjw+IZ5alwuzn2YcBbzc8sb5ZjyW/VEzWNc9xs1oLnOPAAC5JPhYKXbBwuxTE6jGJB80w5YGnkcoDOXsxkki/rSnwQaZtdgDaTFMOoblzewpA/U6udUyNfl+i3wA4Ld8CPyTi89M/SKqcHNkOgOZ7uy14d1zjGbfTjWD3oD+MVD9nSfGSrfN5uA+k0vbsbeamzSNt6zo7DtYxrxLQCPrNaeSDcAuVrmwmPiuo45C4F7e5Jw1IALX6cnMLXftW5LY0BERAREQEREBERARF5MWr2U0EtRIbMiY57j0a0k2HM9EEs3t0razEaCjhuZyCHgG1o3uu3NyBs151GlipzheBvqHVnZhxNMx7iGkZjklLDYe0LAmwsbfcqturoH1U9Vjk478znMiv7LbgPsPJjWD9V3iVgtywviOIX8JfinoKDuyro5cLpGxuzdlG2J2oPeY0a+RFiOhC2pSigPyHjDoCSKStN473swl+g14ZHvt+rI36KqwQcoiICIiAiIgIiICIvyqqhsbHyPIa1rS5zjwAAuSfcgn29/GnCOHC4Rmlq3BpaP5vMG5T4Z3EDyDjyW4bMYK2hpIaZmuRved9N7jme89S4kqfbu4H4piNVjUw7jXdnTNPLQgWv9Fh/tSP8FVggie879IqH7Ok+MlVsIUU3mfpFQ/Z0nxcqtiCV0x+RcZdEdKWr1Zxs3M+5Hm2Vx/ZlH0TaqXWqbyNm/T6JzWNvNEe0iH0iGkOjPRzSR9x5Bdd220fp9EwuN5Y7Mff1nad2Qj6w/7hw5INtREQEREBERAREQCphvVr31U9JglP60z2vmI9hmYZb+VnPP6luaoeL4lHSwS1MpAZGwvcT4Dl53096nu6XDpKmWqxuoHfqHuETTrkZc3ynwsGsHRl+aCiYXQsp4YoIxZkbQxo6AKP7kTfEK8+LXn76l6s00gY0uJAABJJ0AAGqi+4n+WVh/oh+M5BRN4uzfyhRPY0fPR3khOg74HqXPAOHdPmvNuy2j9NowyQ/PwfNyA3zG2jXHqQLH6wctwKlO07DgmLx4k2/o1UckzRezXkAu6a5c46tf8ASQVdF0jkDgHAggi4I1BB4EdF3QEREBERAREQFNd8WMPcyDCINZqtwDh/R59AbcnOFj9Vr1RKupZEx8j3BrWNLnOPAAC5Klu7OndidfVY7M0gBxip2nkMttPJht+s56CibNYOyipYaVnCNoBdzc7i556k3PvWUXAXKCK7yh/GOi+zpPi5ValF944/jHQ/ZUnxcytCApPXH5Extso7tJW3zDk15Pf+5xD/ACe/wVYWt7f7PfKFDLANJG/ORO8JG8Aejhdp6OQbGCuVpG6naL0uj7GQ/PU1ontPrZRcMLuoylpPiwrd0BERAREQEReLGMRjpYJamU2ZE0vcegHAdTwQTrerXPrKqkwGEnNM5skxF7NYCXMBPkxzv2W+KpGGULKeGKCMWZGxrGjo0WHv0U73Q4bJO+pxupFpalxDBybHpfL00DR0bfmqcg8uJtvDMPGN/wDlKj+4cflVWf6IfiuVfxZ1oJz4Rv8A8hUj3Ej8prPsm/iuQWdYjanBGV9LLSv9sd130HjVjx5FZdEE83S45IY5cMqe7UUri23jGNNPGxv+yWqhqX7y6F9BV0+OwA9wtjqGDQOaSQCfMOynyYeSouFV8dTDFURHMyRrXtPRwuNOR6IPWiIgIiICIvPX1TIYpJpDlZGxz3OPANa0lx+4IJrvlxx7xFg1PftajK6V3BrYS4gBzuABcNT4A+KoGz2Ex0VNDSx+rG0C9rZj7Tj1JufepfsLgjcbqK/FatpdFNmgijzOFmaCwINxZoGni5yzomrsEJ7QvrKAf8TQ1FOOeYaZ2Dje/jwQUVF4sIxWGribPBI2RjuDm8vEEcj0K9qCNbxR/GOh+zpfiplZVGt4n6R0P2dL8VMrKgLhy5WiY7t258xoMLj9Kqbd6T/l4dbXkfz58NNPcg1/aUfIuMx17B+T1WYzsb7JuO1dbnxDxpq7ML3KrEEge1rxwcAQehFwpzJu3kmpqp9VUvmrZoiBLmc2GN3rNY1gsHMzAXuPIBendFj7pqZ1FNcT0pyOB45MxDbnnYgtv0HigoCIiAiIg4JUr3pV7sQqqbAaZ+r3h9S5tjka0XDXgeF89ujfFUbHcTjpKaaqlNmRMc8+JsNAOpNh71JdjNkp8ThqMVdO+nnqJjJE9oGgaS2xIAdlvpoRfICboLBh1GyCKOGMBrGNDWtHIAWC9KmkO2FdhZbFi0JfHcAV0IBbxNswAAP3NOvArfsJxaGrjEsEjZGnm08D4OHEHoUH7VsQfHIw8HMcD5EWKkW4wWqq4eDGj/GerDN6rvI/uUe3Gfyqu/Ub+NIgsiLgrTdqt4tLRO7CO9RUE5RBFY2d4PdyPQXPRBsuM00U1PNFPbsnsLX5iAA0jUknhbjdTHdJj/YTy4S5/aRF8hpageo8MJz5CfWB0PdvY3C9MWyuJYu4S4pL2FP7NDFobfX8PeSfJN4WxzKSlp62gb2TqE57AuN2XDnOcTcuIIuSeILkFTRYjZbHGV9JDVx6B47zebXtNntPk4FZdAREQcFTLfFiz5fRcFp9Zat47S3sx5gAD4AnU/Va5UXEKxkEUk0jg1kbS9ziQAGtFzqVMd1dI/EKysx6cf7xxZTtIPdZqNOgblHmXIKNgGFMo6aGlj9WNgaDzJ9px6kkn3rIELkIg0fF9jZIJXV2FvbBMdZKc/yefW9nN9l1ydR48uK92zO2UdS80s7DTVbR36aTn9aN3B48ltK17bHZaLEIS0hrZmi8NRYh8b+RDm2Nul0E53kStG0VCSRpHS36flUvFVPaDH6ehiM1RIGN5Di555NY0auKlbtzlRL85LUs7QgZi7tJXFw59pcEdNDbqto2R3e9jPJU1p9Ic1wFMJXum7Fg6usM3DgBayDzugxDHCe0z0NAeDRYVNQ3630GnqPvW8YHgkFFEIKeNsbByHEm1ruPM6cVkLLlBwVJtuojg+KwYzG09lOezqABfUtGb+01gPnH1VaWI2pwRlfSzUr/AG2911gcjxq14vzBQZSGVr2te0gtcAQ4cCCLgj3LupxudxuR0UuGVOk9I4tykm5jva37LrjyyqjoCFFj8dxaOjppqqU2ZEwuPW3Bo6k2A80E73o1b6+to8CgPrubLUkX7rAe6CfIOd7mjmqbQUjIYo4WCzWNDWjwAFgp1ufwiST0rGajWare4sv7LMxvbpwaLcmBUxB0mia9pa4AgixaRcEeBB4rQsW3ciOU1eGSmkn5sH+5f4NI9kdNRrwVARBMTvBqqMOp8TpHtmykRyQ2LJTqBlFyBy4E+Q4LQN2G1nydNNJNE9zJIu8Y7OLS17jmIv6ve4myv2KYPBVBgnjbIGOD25hq1w5tPEFfjLs5RubkNNDltawY1ummndA00GnA2QaAJcWxy4aDQ0Th63/Flab+86dANeLluOyuxdJhrQII+/axmfYyHxF+Q6Cy2FjA0AAAAaADQADgAuyAuk0Yc0tIuCCCDwIIsQV3RBJ9lZDguLy4W/Smqjnp3Hk82yt/ew9Wt8VV7rS96mzBrqMviuJ6c9rE5t8xsO8wEa3PEdQF7d3e04xKiZMSO1b83M3weANbeBBBHmg2hERBLt8WKPnfS4HAfnKpzTJblGHXaD5lpNvBhVBwHC2UlNDTR+rGxrb+JA1cepNz71rmC7FuixWrxSeQSuk0hFrdm0ixbr4AWBH0nLc0BERAREQEREBERAREQSfeRTOwzEaXHIQchIiqWjncEXt1b/5NYqlR1DZWMlYbte0Oa4c2uFwfuK8e0WEMraWalkHdkbbyIN2uHUOAPuWN3f4JPQUTKWokZIWE5SwEBrCbhuvG2qDZFKt59U7EK6kwGEmzi2aocLWDRctafINLve3x0qq0rYjY+Wkqq6tqntlnnkOV7b2EehAseB4C3gwINtoKVkMUcMbQ1kbWsa0cA1osB9wXoREBERAREQEREBERBwQpLNfAsba4d2ir9CB6schPh0cR7pD4KtrzVlBFNk7WNr8jg9uYA2cODhfmg/btB4oucvT9yIOyIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIP/Z" alt="Phone Tripod">
+                </div>
+                <div class="product-name">Phone Tripod</div>
+                <div class="product-price">$45</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://cdn.mos.cms.futurecdn.net/TR8y8oowioU7DTiYKzUyna-1200-80.jpg" alt="Microphone">
+                </div>
+                <div class="product-name">Microphone</div>
+                <div class="product-price">$25</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://aitnews.com/wp-content/uploads/2021/10/JOBY-JB01503-BWW-GorillaPod-bc5c.webp" alt="Digital Camera">
+                </div>
+                <div class="product-name">HUAWEI camera</div>
+                <div class="product-price">$150</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://cdn.supercommerce.io/kareem/uploads/gwbTmJ-1602930893.jpg" alt="Digital Camera">
+                </div>
+                <div class="product-name">Parabolic 90cm</div>
+                <div class="product-price">$90</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://m.media-amazon.com/images/I/61w5yYzxsiL._AC_SX679_.jpg" alt="Digital Camera">
+                </div>
+                <div class="product-name">صندوق اضاءة ستوديو محمول للصور</div>
+                <div class="product-price">$500</div>
+                <div class="quantity-input">
+                    <input type="number" min="1" value="1" class="qty">
+                    <span>Qty</span>
+                </div>
+                <button class="add-to-cart" onclick="showAddressForm(this)">Order now</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Address Form -->
+    <div class="address-form-overlay" id="addressFormOverlay">
+        <div class="address-form">
+            <h3>Please Enter Your Shipping Address</h3>
+            <form id="shippingForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" required placeholder="Your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Full Address</label>
+                    <textarea id="address" required placeholder="Your complete address including city, district, and any landmarks"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Additional Notes (Optional)</label>
+                    <textarea id="notes" placeholder="Any special instructions for delivery"></textarea>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="cancel-btn" onclick="hideAddressForm()">Cancel</button>
+                    <button type="submit" class="submit-btn">Confirm Order</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentProduct = null;
+
+        function showAddressForm(button) {
+            const productCard = button.closest('.product-card');
+            const productName = productCard.querySelector('.product-name').innerText;
+            const productPrice = productCard.querySelector('.product-price').innerText;
+            const quantity = productCard.querySelector('.qty').value;
+
+            if (parseInt(quantity) < 1 || isNaN(quantity)) {
+                alert("Please enter a valid quantity (1 or more)");
+                return;
+            }
+
+            currentProduct = {
+                name: productName,
+                price: productPrice,
+                quantity: quantity
+            };
+
+            document.getElementById('addressFormOverlay').style.display = 'flex';
+        }
+
+        function hideAddressForm() {
+            document.getElementById('addressFormOverlay').style.display = 'none';
+            currentProduct = null;
+        }
+
+        document.getElementById('shippingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const address = document.getElementById('address').value;
+            const notes = document.getElementById('notes').value;
+
+            if (!fullName || !phoneNumber || !address) {
+                alert("Please fill in all required fields");
+                return;
+            }
+
+            const message = `New Order 🛒\n\n- Product: ${currentProduct.name}\n- Price: ${currentProduct.price}\n- Quantity: ${currentProduct.quantity}\n\nCustomer Details:\n- Name: ${fullName}\n- Phone: ${phoneNumber}\n- Address: ${address}\n- Notes: ${notes || 'None'}`;
+
+            const whatsappUrl = `https://wa.me/201211536299?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+            hideAddressForm();
+        });
+    </script>
+</body>
+</html>
